@@ -33,7 +33,7 @@ public class Bloc implements Serializable {
     @ManyToOne
     @JsonIgnore
     Foyer foyer;
-
+//said
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(mappedBy = "bloc")

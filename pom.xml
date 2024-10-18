@@ -10,7 +10,7 @@
     </parent>
     <groupId>tn.esprit</groupId>
     <artifactId>tpFoyer-17</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>tpFoyer-17</name>
     <description>tpFoyer-17</description>
     <properties>
@@ -25,11 +25,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.0.0</version>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -38,6 +34,11 @@
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -49,31 +50,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
-
-    <!-- Section DistributionManagement for Nexus Deployment -->
-    <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <url>http://localhost:8081/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>http://localhost:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <!-- Adding repositories section for Nexus -->
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <url>http://localhost:8081/repository/maven-releases/</url>
-        </repository>
-        <repository>
-            <id>nexus-snapshots</id>
-            <url>http://localhost:8081/repository/maven-snapshots/</url>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>
@@ -89,26 +67,18 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <!-- Plugin JaCoCo -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+
+
+    <!-- Deploy to Nexus -->
+    <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <name>Nexus Repository</name>
+            <url>http://192.168.1.123:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
 </project>

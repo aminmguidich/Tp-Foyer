@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReservationService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tpFoyer-17</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.tpfoyer17.services.impementations</a> &gt; <span class="el_source">ReservationService.java</span></div><h1>ReservationService.java</h1><pre class="source lang-java linenums">package tn.esprit.tpfoyer17.services.impementations;
+
+import jakarta.transaction.Transactional;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import tn.esprit.tpfoyer17.entities.Chambre;
+import tn.esprit.tpfoyer17.entities.Etudiant;
+import tn.esprit.tpfoyer17.entities.Reservation;
+import tn.esprit.tpfoyer17.repositories.ChambreRepository;
+import tn.esprit.tpfoyer17.repositories.EtudiantRepository;
+import tn.esprit.tpfoyer17.repositories.ReservationRepository;
+import tn.esprit.tpfoyer17.repositories.UniversiteRepository;
+import tn.esprit.tpfoyer17.services.interfaces.IReservationService;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+<span class="nc bnc" id="L23" title="All 2 branches missed.">@Service</span>
+<span class="nc" id="L24">@AllArgsConstructor</span>
+<span class="nc" id="L25">@Slf4j</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class ReservationService implements IReservationService {
+    ReservationRepository reservationRepository;
+    EtudiantRepository etudiantRepository;
+    ChambreRepository chambreRepository;
+    UniversiteRepository universiteRepository;
+
+    @Override
+    public List&lt;Reservation&gt; retrieveAllReservation() {
+<span class="nc" id="L35">        return (List&lt;Reservation&gt;) reservationRepository.findAll();</span>
+    }
+
+    @Override
+    public Reservation updateReservation(Reservation res) {
+<span class="nc" id="L40">        return reservationRepository.save(res);</span>
+    }
+
+    @Override
+    public Reservation retrieveReservation(String idReservation) {
+<span class="nc" id="L45">        return reservationRepository.findById(idReservation).orElse(null);</span>
+
+    }
+
+    @Transactional
+    public Reservation annulerReservation(long cinEtudiant) {
+<span class="nc" id="L51">        Etudiant etudiant = etudiantRepository.findByCinEtudiant(cinEtudiant);</span>
+<span class="nc" id="L52">        Set&lt;Reservation&gt; reservationList = etudiant.getReservations();</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        for (Reservation reservation : reservationList) {</span>
+<span class="nc" id="L54">            reservation.getEtudiants().remove(etudiant);</span>
+<span class="nc" id="L55">            reservationRepository.save(reservation);</span>
+<span class="nc" id="L56">            Chambre chambre = chambreRepository.findByReservationsIdReservation(reservation.getIdReservation());</span>
+<span class="nc" id="L57">            chambre.getReservations().remove(reservation);</span>
+<span class="nc bnc" id="L58" title="All 4 branches missed.">            switch (chambre.getTypeChambre()) {</span>
+<span class="nc" id="L59">                case SIMPLE -&gt; reservation.setEstValide(true);</span>
+                case DOUBLE -&gt; {
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                    if (reservation.getEtudiants().size() == 2) reservation.setEstValide(true);</span>
+                }
+                case TRIPLE -&gt; {
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                    if (reservation.getEtudiants().size() == 3) reservation.setEstValide(true);</span>
+                }
+            }
+
+<span class="nc" id="L68">        }</span>
+<span class="nc" id="L69">        return null;</span>
+    }
+
+    @Override
+    public List&lt;Reservation&gt; getReservationParAnneeUniversitaireEtNomUniversite(LocalDate anneeUniversite, String nomUniversite) {
+<span class="nc" id="L74">        return reservationRepository.recupererParBlocEtTypeChambre(nomUniversite, anneeUniversite);</span>
+    }
+
+    @Override
+    public List&lt;Reservation&gt; getReservationParAnneeUniversitaireEtNomUniversiteKeyWord(LocalDate anneeUniversite, String nomUniversite) {
+<span class="nc" id="L79">        return universiteRepository.findByFoyerBlocsChambresReservationsAnneeUniversitaireAndNomUniversite(anneeUniversite, nomUniversite);</span>
+    }
+
+    @Transactional
+    public Reservation ajouterReservation(long idChambre, long cinEtudiant) {
+<span class="nc" id="L84">        Etudiant etudiant = etudiantRepository.findByCinEtudiant(cinEtudiant);</span>
+<span class="nc" id="L85">        Chambre chambre = chambreRepository.findById(idChambre).orElse(null);</span>
+
+<span class="nc bnc" id="L87" title="All 4 branches missed.">        assert chambre != null;</span>
+<span class="nc" id="L88">        String numReservation = generateId(chambre.getNumeroChambre(),</span>
+<span class="nc" id="L89">                chambre.getBloc().getNomBloc());</span>
+
+<span class="nc" id="L91">        Reservation reservation = reservationRepository.findById(numReservation).orElse(</span>
+<span class="nc" id="L92">                Reservation.builder()</span>
+<span class="nc" id="L93">                        .idReservation(numReservation)</span>
+<span class="nc" id="L94">                        .etudiants(new HashSet&lt;&gt;())</span>
+<span class="nc" id="L95">                        .anneeUniversitaire(LocalDate.now())</span>
+<span class="nc" id="L96">                        .estValide(true)</span>
+<span class="nc" id="L97">                        .build());</span>
+
+
+        //Vérifier capacité maximale de la chambre
+<span class="nc bnc" id="L101" title="All 4 branches missed.">        if (reservation.isEstValide() &amp;&amp; (capaciteChambreMaximale(chambre))) {</span>
+<span class="nc" id="L102">            chambre.getReservations().add(reservation);</span>
+<span class="nc" id="L103">            reservation.getEtudiants().add(etudiant);</span>
+<span class="nc" id="L104">            reservationRepository.save(reservation);</span>
+        }
+
+<span class="nc bnc" id="L107" title="All 4 branches missed.">        switch (chambre.getTypeChambre()) {</span>
+<span class="nc" id="L108">            case SIMPLE -&gt; reservation.setEstValide(false);</span>
+            case DOUBLE -&gt; {
+<span class="nc bnc" id="L110" title="All 2 branches missed.">                if (reservation.getEtudiants().size() == 2) reservation.setEstValide(false);</span>
+            }
+            case TRIPLE -&gt; {
+<span class="nc bnc" id="L113" title="All 2 branches missed.">                if (reservation.getEtudiants().size() == 3) reservation.setEstValide(false);</span>
+            }
+        }
+<span class="nc" id="L116">        return reservationRepository.save(reservation);</span>
+
+    }
+
+
+    private String generateId(long numChambre, String nomBloc) {
+<span class="nc" id="L122">        return numChambre + &quot;-&quot; + nomBloc + &quot;-&quot; + LocalDate.now().getYear();</span>
+    }
+
+    private boolean capaciteChambreMaximale(Chambre chambre) {
+<span class="nc bnc" id="L126" title="All 4 branches missed.">        switch (chambre.getTypeChambre()) {</span>
+            case SIMPLE -&gt; {
+<span class="nc bnc" id="L128" title="All 2 branches missed.">                return chambre.getReservations().size() &lt; 2;</span>
+            }
+            case DOUBLE -&gt; {
+<span class="nc bnc" id="L131" title="All 2 branches missed.">                return chambre.getReservations().size() &lt; 3;</span>
+            }
+            case TRIPLE -&gt; {
+<span class="nc bnc" id="L134" title="All 2 branches missed.">                return chambre.getReservations().size() &lt; 4;</span>
+            }
+            default -&gt; {
+<span class="nc" id="L137">                return false;</span>
+            }
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

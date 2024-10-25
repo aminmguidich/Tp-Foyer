@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChambreController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tpFoyer-17</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.tpfoyer17.controllers</a> &gt; <span class="el_source">ChambreController.java</span></div><h1>ChambreController.java</h1><pre class="source lang-java linenums">package tn.esprit.tpfoyer17.controllers;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import tn.esprit.tpfoyer17.entities.Bloc;
+import tn.esprit.tpfoyer17.entities.Chambre;
+import tn.esprit.tpfoyer17.entities.enumerations.TypeChambre;
+import tn.esprit.tpfoyer17.services.interfaces.IChambreService;
+
+import java.util.List;
+
+@RestController
+<span class="fc" id="L16">@AllArgsConstructor</span>
+<span class="fc" id="L17">@Slf4j</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@RequestMapping(&quot;api/chambres&quot;)
+public class ChambreController {
+    @GetMapping(&quot;/retrieveAllChambres&quot;)
+    public List&lt;Chambre&gt; retrieveAllChambres() {
+<span class="fc" id="L23">        return chambreService.retrieveAllChambres();</span>
+    }
+
+    @PostMapping(&quot;/addChambre&quot;)
+    public Chambre addChambre(@RequestBody Chambre c) {
+<span class="fc" id="L28">        return chambreService.addChambre(c);</span>
+    }
+
+    @PutMapping(&quot;/updateChambre&quot;)
+    public Chambre updateChambre(@RequestBody Chambre c) {
+<span class="fc" id="L33">        return chambreService.updateChambre(c);</span>
+    }
+
+    @GetMapping(&quot;/retrieveChambre/{idChambre}&quot;)
+    public Chambre retrieveChambre(@PathVariable(&quot;idChambre&quot;) long idChambre) {
+<span class="fc" id="L38">        return chambreService.retrieveChambre(idChambre);</span>
+    }
+
+    @GetMapping(&quot;/findByTypeChambre&quot;)
+    public List&lt;Chambre&gt; findByTypeChambre() {
+<span class="fc" id="L43">        return chambreService.findByTypeChambre();</span>
+    }
+
+    @PutMapping(&quot;/affecterChambresABloc/{idBloc}&quot;)
+    public Bloc affecterChambresABloc(@RequestBody List&lt;Long&gt; numChambre,
+                                      @PathVariable(&quot;idBloc&quot;) long idBloc) {
+<span class="fc" id="L49">        return chambreService.affecterChambresABloc(numChambre, idBloc);</span>
+    }
+
+    @GetMapping(&quot;/getChambresParNomUniversite/{nomUniversite}&quot;)
+    public List&lt;Chambre&gt; getChambresParNomUniversite(@PathVariable(&quot;nomUniversite&quot;) String nomUniversite) {
+<span class="nc" id="L54">        return chambreService.getChambresParNomUniversite(nomUniversite);</span>
+    }
+
+    @GetMapping(&quot;/getChambresParBlocEtType/{idBloc}/{typeC}&quot;)
+    public List&lt;Chambre&gt; getChambresParBlocEtType(@PathVariable(&quot;idBloc&quot;) long idBloc, @PathVariable(&quot;typeC&quot;) TypeChambre typeC) {
+<span class="nc" id="L59">        return chambreService.getChambresParBlocEtType(idBloc, typeC);</span>
+    }
+
+    @GetMapping(&quot;/getChambresParBlocEtTypeJPQL/{idBloc}/{typeC}&quot;)
+    public List&lt;Chambre&gt; getChambresParBlocEtTypeJPQL(@PathVariable(&quot;idBloc&quot;) long idBloc, @PathVariable(&quot;typeC&quot;) TypeChambre typeC) {
+<span class="nc" id="L64">        return chambreService.getChambresParBlocEtTypeJPQL(idBloc, typeC);</span>
+    }
+@GetMapping(&quot;/getChambresNonReserveParNomUniversiteEtTypeChambre/{nomUniversite}/{type}&quot;)
+    public List&lt;Chambre&gt; getChambresNonReserveParNomUniversiteEtTypeChambre(@PathVariable(&quot;nomUniversite&quot;) String nomUniversite,
+                                                                         @PathVariable(&quot;type&quot;) TypeChambre type) {
+<span class="nc" id="L69">        return chambreService.getChambresNonReserveParNomUniversiteEtTypeChambre(nomUniversite, type);</span>
+    }
+
+    IChambreService chambreService;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

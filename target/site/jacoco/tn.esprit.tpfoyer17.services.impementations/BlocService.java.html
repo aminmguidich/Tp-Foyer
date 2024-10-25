@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlocService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tpFoyer-17</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.tpfoyer17.services.impementations</a> &gt; <span class="el_source">BlocService.java</span></div><h1>BlocService.java</h1><pre class="source lang-java linenums">package tn.esprit.tpfoyer17.services.impementations;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import tn.esprit.tpfoyer17.entities.Bloc;
+import tn.esprit.tpfoyer17.repositories.BlocRepository;
+import tn.esprit.tpfoyer17.services.interfaces.IBlocService;
+
+import java.util.List;
+
+@Service
+<span class="nc" id="L15">@AllArgsConstructor</span>
+<span class="nc" id="L16">@Slf4j</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class BlocService implements IBlocService {
+    BlocRepository blocRepository;
+
+    @Override
+    public List&lt;Bloc&gt; retrieveBlocs() {
+<span class="nc" id="L23">        return (List&lt;Bloc&gt;) blocRepository.findAll();</span>
+    }
+
+    @Override
+    public Bloc updateBloc(Bloc bloc) {
+<span class="nc" id="L28">        return blocRepository.save(bloc);</span>
+    }
+
+    @Override
+    public Bloc addBloc(Bloc bloc) {
+<span class="nc" id="L33">        return blocRepository.save(bloc);</span>
+    }
+
+    @Override
+    public Bloc retrieveBloc(long idBloc) {
+<span class="nc" id="L38">        return blocRepository.findById(idBloc).orElse(null);</span>
+    }
+
+    @Override
+    public void removeBloc(long idBloc) {
+<span class="nc" id="L43">        blocRepository.deleteById(idBloc);</span>
+
+<span class="nc" id="L45">    }</span>
+
+    @Override
+    public List&lt;Bloc&gt; findByFoyerIdFoyer(long idFoyer) {
+<span class="nc" id="L49">        return blocRepository.findByFoyerIdFoyer(idFoyer);</span>
+    }
+
+    @Override
+    public Bloc findByChambresIdChambre(Long idChambre) {
+<span class="nc" id="L54">        return blocRepository.findByChambresIdChambre(idChambre);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

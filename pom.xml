@@ -75,7 +75,7 @@
             <url>http://192.168.56.10:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>deploymentRepo</id>
+            <id>deploymentRepoSnapshot</id>
             <url>http://192.168.56.10:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>

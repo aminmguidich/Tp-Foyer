@@ -12,10 +12,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Etudiant implements Serializable {
 

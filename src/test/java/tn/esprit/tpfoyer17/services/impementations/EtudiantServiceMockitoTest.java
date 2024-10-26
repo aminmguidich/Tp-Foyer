@@ -36,10 +36,11 @@ class EtudiantServiceMockitoTest {
     void addEtudiant() {
         // Arrange
         Etudiant etudiant = new Etudiant();
-        etudiant.setNomEtudiant("John");
-        etudiant.setPrenomEtudiant("Doe");
+        etudiant.setNomEtudiant("youssef");
+        etudiant.setPrenomEtudiant("ghrir");
         etudiant.setCinEtudiant(123456);
-        etudiant.setDateNaissance(new Date());
+        Date dateNaissance = new Date();
+        etudiant.setDateNaissance(dateNaissance);
 
         when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
 
@@ -48,9 +49,14 @@ class EtudiantServiceMockitoTest {
 
         // Assert
         assertNotNull(savedEtudiant);
-        assertEquals("John", savedEtudiant.getNomEtudiant());
+        assertEquals("youssef", savedEtudiant.getNomEtudiant());
+        assertEquals("ghrir", savedEtudiant.getPrenomEtudiant());
+        assertEquals(123456, savedEtudiant.getCinEtudiant());
+        assertEquals(dateNaissance, savedEtudiant.getDateNaissance()); // Vérification de la date de naissance
+
         verify(etudiantRepository, times(1)).save(etudiant);
     }
+
 
     @Test
     void retrieveAllEtudiants() {

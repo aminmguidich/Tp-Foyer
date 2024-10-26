@@ -10,6 +10,7 @@ import tn.esprit.tpfoyer17.entities.Etudiant;
 import tn.esprit.tpfoyer17.repositories.EtudiantRepository;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -124,6 +125,25 @@ class EtudiantServiceMockitoTest {
 
         // Assert
         verify(etudiantRepository, times(1)).deleteById(1L);
+    }
+    @Test
+    void findByReservationsAnneeUniversitaire() {
+        // Arrange
+        List<Etudiant> etudiants = new ArrayList<>();
+        Etudiant etudiant1 = new Etudiant();
+        Etudiant etudiant2 = new Etudiant();
+        etudiants.add(etudiant1);
+        etudiants.add(etudiant2);
+
+        when(etudiantRepository.findByReservationsAnneeUniversitaire(any(LocalDate.class))).thenReturn(etudiants);
+
+        // Act
+        List<Etudiant> result = etudiantService.findByReservationsAnneeUniversitaire();
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        verify(etudiantRepository, times(1)).findByReservationsAnneeUniversitaire(any(LocalDate.class));
     }
 
 }

@@ -80,6 +80,20 @@ class EtudiantServiceJUnitTest {
         assertEquals("Updated Name", updatedEtudiant.getNomEtudiant());
         System.out.println("Modify Etudiant: Ok");
     }
+    @Test
+    @Order(5) // Adjust the order as needed
+    void findByReservationsAnneeUniversitaire() {
+        // Assuming some Etudiants with reservations for the current academic year are already in the database.
+
+        // Act
+        List<Etudiant> etudiants = etudiantService.findByReservationsAnneeUniversitaire();
+
+        // Assert
+        assertNotNull(etudiants);
+        assertTrue(etudiants.isEmpty(), "Expected non-empty list of Etudiants with reservations");
+        System.out.println("Find By Reservations Annee Universitaire: Ok");
+    }
+
 
 
 }

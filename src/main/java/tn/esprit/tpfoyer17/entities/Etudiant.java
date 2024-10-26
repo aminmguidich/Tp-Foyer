@@ -21,7 +21,8 @@ public class Etudiant implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
+
+
     long idEtudiant;
 
     String nomEtudiant;

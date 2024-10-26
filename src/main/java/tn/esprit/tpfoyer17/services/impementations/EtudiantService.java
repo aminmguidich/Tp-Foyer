@@ -1,5 +1,6 @@
 package tn.esprit.tpfoyer17.services.impementations;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,8 +26,8 @@ public class EtudiantService implements IEtudiantService {
     }
 
     @Override
-    public List<Etudiant> addEtudiants(List<Etudiant> etudiants) {
-        return (List<Etudiant>) etudiantRepository.saveAll(etudiants);
+    public Etudiant addEtudiants(Etudiant etudiant) {
+        return  etudiantRepository.save(etudiant);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class EtudiantService implements IEtudiantService {
 
     @Override
     public Etudiant retrieveEtudiant(long idEtudiant) {
-        return etudiantRepository.findById(idEtudiant).orElse(null);
+        return etudiantRepository.findById(idEtudiant) .orElseThrow(() -> new EntityNotFoundException("Etudiant not found with ID: " + idEtudiant));
     }
 
     @Override

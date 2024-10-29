@@ -1,0 +1,27 @@
+version: "3"
+services:
+  spring-foyer:
+    image: youssefghrir/tpfoyer_image
+    ports:
+      - "8082:8082"
+    networks:
+      - foyerr
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb/tpFoyer17
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:8
+    volumes:
+      -  /home/mysql/foyerdata:/var/lib/mysql:rw
+    networks:
+      - foyerr
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tpFoyer17
+
+networks:
+  foyerr:

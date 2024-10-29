@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: tn.esprit.tpfoyer17.Controller.ChambreControllerTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.758 s - in tn.esprit.tpfoyer17.Controller.ChambreControllerTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.374 s - in tn.esprit.tpfoyer17.Controller.ChambreControllerTest

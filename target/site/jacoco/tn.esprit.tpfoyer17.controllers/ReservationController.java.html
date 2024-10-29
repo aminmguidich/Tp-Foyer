@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReservationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tpFoyer-17</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.tpfoyer17.controllers</a> &gt; <span class="el_source">ReservationController.java</span></div><h1>ReservationController.java</h1><pre class="source lang-java linenums">package tn.esprit.tpfoyer17.controllers;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+import tn.esprit.tpfoyer17.entities.Reservation;
+import tn.esprit.tpfoyer17.services.interfaces.IReservationService;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+<span class="nc" id="L16">@AllArgsConstructor</span>
+<span class="nc" id="L17">@Slf4j</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@RequestMapping(&quot;api/reservations&quot;)
+public class ReservationController {
+    @GetMapping(&quot;/retrieveAllReservation&quot;)
+    public List&lt;Reservation&gt; retrieveAllReservation() {
+<span class="nc" id="L23">        return reservationService.retrieveAllReservation();</span>
+    }
+    @PutMapping(&quot;/updateReservation&quot;)
+
+    public Reservation updateReservation(@RequestBody Reservation res) {
+<span class="nc" id="L28">        return reservationService.updateReservation(res);</span>
+    }
+ @GetMapping(&quot;/retrieveReservation/{idReservation}&quot;)
+    public Reservation retrieveReservation(@PathVariable(&quot;idReservation&quot;) String idReservation) {
+<span class="nc" id="L32">        return reservationService.retrieveReservation(idReservation);</span>
+    }
+@PostMapping(&quot;/ajouterReservation/{idChambre}/{cinEtudiant}&quot;)
+    public Reservation ajouterReservation( @PathVariable(&quot;idChambre&quot;) long idChambre,
+                                           @PathVariable(&quot;cinEtudiant&quot;) long cinEtudiant) {
+<span class="nc" id="L37">        return reservationService.ajouterReservation(idChambre, cinEtudiant);</span>
+    }
+@PutMapping(&quot;/annulerReservation/{cinEtudiant}&quot;)
+    public Reservation annulerReservation(@PathVariable(&quot;cinEtudiant&quot;) long cinEtudiant) {
+<span class="nc" id="L41">        return reservationService.annulerReservation(cinEtudiant);</span>
+    }
+@GetMapping(&quot;/getReservationParAnneeUniversitaireEtNomUniversite/{anneeUniversite}/{nomUniversite}&quot;)
+    public List&lt;Reservation&gt; getReservationParAnneeUniversitaireEtNomUniversite(
+            @PathVariable(&quot;anneeUniversite&quot;) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate anneeUniversite,
+            @PathVariable(&quot;nomUniversite&quot;) String nomUniversite) {
+<span class="nc" id="L47">        return reservationService.getReservationParAnneeUniversitaireEtNomUniversite(anneeUniversite, nomUniversite);</span>
+    }
+@GetMapping(&quot;/getReservationKeyWord/{anneeUniversite}/{nomUniversite}&quot;)
+    public List&lt;Reservation&gt; getReservationKeyWord( @PathVariable(&quot;anneeUniversite&quot;)
+                                                                                        @DateTimeFormat(iso =
+                                                                                                DateTimeFormat.ISO.DATE)LocalDate anneeUniversite,
+                                                    @PathVariable(&quot;nomUniversite&quot;) String nomUniversite) {
+<span class="nc" id="L54">        return reservationService.getReservationParAnneeUniversitaireEtNomUniversiteKeyWord(anneeUniversite, nomUniversite);</span>
+    }
+
+    IReservationService reservationService;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

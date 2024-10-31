@@ -47,7 +47,8 @@ public class ReservationService implements IReservationService {
     }
 
     @Transactional
-    public Reservation annulerReservation(long cinEtudiant) {
+
+     /*public Reservation annulerReservation(long cinEtudiant) {
         Etudiant etudiant = etudiantRepository.findByCinEtudiant(cinEtudiant);
         Set<Reservation> reservationList = etudiant.getReservations();
         for (Reservation reservation : reservationList) {
@@ -67,6 +68,60 @@ public class ReservationService implements IReservationService {
 
         }
         return null;
+    }
+
+
+
+
+      */
+
+
+    public Reservation annulerReservation(long cinEtudiant) {
+        Etudiant etudiant = etudiantRepository.findByCinEtudiant(cinEtudiant);
+
+        if (etudiant != null) {
+            Set<Reservation> reservationList = etudiant.getReservations();
+
+            for (Reservation reservation : reservationList) {
+                initializeReservationCollections(reservation); // Initialisation ici
+
+                reservation.getEtudiants().remove(etudiant);
+                reservationRepository.save(reservation);
+
+                Chambre chambre = chambreRepository.findByReservationsIdReservation(reservation.getIdReservation());
+
+                if (chambre != null) {
+                    initializeChambreCollections(chambre); // Initialisation ici
+                    chambre.getReservations().remove(reservation);
+
+                    // Met à jour l'état de validité de la réservation selon le type de chambre et le nombre d'étudiants
+                    switch (chambre.getTypeChambre()) {
+                        case SIMPLE -> reservation.setEstValide(true);
+                        case DOUBLE -> {
+                            if (reservation.getEtudiants().size() == 2) reservation.setEstValide(true);
+                        }
+                        case TRIPLE -> {
+                            if (reservation.getEtudiants().size() == 3) reservation.setEstValide(true);
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    // Méthode de support pour initialiser la collection 'etudiants' dans 'Reservation'
+    private void initializeReservationCollections(Reservation reservation) {
+        if (reservation.getEtudiants() == null) {
+            reservation.setEtudiants(new HashSet<>());
+        }
+    }
+
+    // Méthode de support pour initialiser la collection 'reservations' dans 'Chambre'
+    private void initializeChambreCollections(Chambre chambre) {
+        if (chambre.getReservations() == null) {
+            chambre.setReservations(new HashSet<>());
+        }
     }
 
     @Override

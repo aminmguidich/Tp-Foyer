@@ -23,5 +23,15 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=tpFoyer17
 
+  angular-foyer:
+    image: youssefghrir/tpfoyer_front_image
+    ports:
+      - "80:80"
+    networks:
+      - foyerr
+
+    depends_on:
+      - mysqldb
+      - spring-foyer
 networks:
   foyerr:

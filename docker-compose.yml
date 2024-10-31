@@ -26,7 +26,7 @@ services:
           "server.port": 8082,
           "spring.datasource.url": "jdbc:mysql://mysqldb:3306/tpFoyer17?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
           "spring.datasource.username": "root",
-          "spring.datasource.password": "",
+          "spring.datasource.password": "admin",
           "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect",
           "spring.jpa.hibernate.ddl-auto": "update",
           "spring.jpa.show-sql": true

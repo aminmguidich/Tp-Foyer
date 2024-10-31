@@ -5,7 +5,7 @@ services:
     image: mysql:5.7
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: # No password set
+      MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: tpFoyer17
     ports:
       - "3306:3306"

@@ -34,10 +34,10 @@ public class Bloc implements Serializable {
     @JsonIgnore
     Foyer foyer;
 
-    @ToString.Exclude
-    @JsonIgnore
-    @OneToMany(mappedBy = "bloc")
-    Set<Chambre> chambres;
+  @ToString.Exclude
+@OneToMany
+@JsonIgnore
+private Set<Reservation> reservations = new HashSet<>();
 
 
 }

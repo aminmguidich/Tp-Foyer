@@ -65,6 +65,7 @@
             <version>5.9.3</version>
             <scope>test</scope>
         </dependency>
+
         <!-- Mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -80,7 +81,6 @@
             <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -91,9 +91,7 @@
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.11</version>
         </dependency>
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -130,7 +128,6 @@
             </plugin>
         </plugins>
     </build>
-    <!-- Deploy to Nexus -->
     <distributionManagement>
         <repository>
             <id>deploymentRepo</id>

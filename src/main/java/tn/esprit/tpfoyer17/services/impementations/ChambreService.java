@@ -8,11 +8,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.tpfoyer17.entities.Bloc;
 import tn.esprit.tpfoyer17.entities.Chambre;
-import tn.esprit.tpfoyer17.entities.Universite;
 import tn.esprit.tpfoyer17.entities.enumerations.TypeChambre;
 import tn.esprit.tpfoyer17.repositories.BlocRepository;
 import tn.esprit.tpfoyer17.repositories.ChambreRepository;
-import tn.esprit.tpfoyer17.repositories.UniversiteRepository;
 import tn.esprit.tpfoyer17.services.interfaces.IChambreService;
 
 import java.util.List;
@@ -24,7 +22,6 @@ import java.util.List;
 public class ChambreService implements IChambreService {
     ChambreRepository chambreRepository;
     BlocRepository blocRepository;
-    UniversiteRepository universiteRepository;
 
     @Override
     public List<Chambre> retrieveAllChambres() {
@@ -53,11 +50,10 @@ public class ChambreService implements IChambreService {
 
     @Override
     public Bloc affecterChambresABloc(List<Long> numChambre, long idBloc) {
-       Bloc bloc = blocRepository.findById(idBloc).orElse(null);
-       //List<Chambre> chambreList = (List<Chambre>) chambreRepository.findAllById(numChambre);
-       List<Chambre> chambreList =  chambreRepository.findByNumeroChambreIn(numChambre);
+       var bloc = blocRepository.findById(idBloc).orElse(null);
+       var chambreList = chambreRepository.findByNumeroChambreIn(numChambre);
 
-       for(Chambre chambre: chambreList) {
+       for (Chambre chambre : chambreList) {
            chambre.setBloc(bloc);
            chambreRepository.save(chambre);
        }
@@ -71,7 +67,7 @@ public class ChambreService implements IChambreService {
 
     @Override
     public List<Chambre> getChambresParBlocEtType(long idBloc, TypeChambre typeC) {
-        return chambreRepository.findByBlocIdBlocAndTypeChambre(idBloc,typeC);
+        return chambreRepository.findByBlocIdBlocAndTypeChambre(idBloc, typeC);
     }
 
     @Override
@@ -81,16 +77,13 @@ public class ChambreService implements IChambreService {
 
     @Override
     public List<Chambre> getChambresNonReserveParNomUniversiteEtTypeChambre(String nomUniversite, TypeChambre type) {
-        return chambreRepository.getChambresNonReserveParNomUniversiteEtTypeChambre(nomUniversite,type);
+        return chambreRepository.getChambresNonReserveParNomUniversiteEtTypeChambre(nomUniversite, type);
     }
 
-    @Scheduled(cron = "*/10 * * * * *" )
-
+    @Scheduled(cron = "*/10 * * * * *")
     @Override
     public void getChambresNonReserve() {
-
-        for (Chambre chambre : chambreRepository.getChambresNonReserve())
-        {
+        for (Chambre chambre : chambreRepository.getChambresNonReserve()) {
             log.info(chambre.toString());
         }
     }

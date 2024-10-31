@@ -1,9 +1,8 @@
 package tn.esprit.tpfoyer17.services.interfaces;
 
-import tn.esprit.tpfoyer17.entities.Reservation;
 import tn.esprit.tpfoyer17.entities.Universite;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 public interface IUniversiteService {

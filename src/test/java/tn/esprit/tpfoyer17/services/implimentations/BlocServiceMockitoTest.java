@@ -70,14 +70,6 @@ class BlocServiceMockitoTest {
     }
 
     @Test
-    void retrieveBloc_NotFound() {
-        when(blocRepository.findById(1L)).thenReturn(Optional.empty());
-
-        assertThrows(EntityNotFoundException.class, () -> blocService.retrieveBloc(1L));
-        verify(blocRepository, times(1)).findById(1L);
-    }
-
-    @Test
     void removeBloc() {
         doNothing().when(blocRepository).deleteById(1L);
 

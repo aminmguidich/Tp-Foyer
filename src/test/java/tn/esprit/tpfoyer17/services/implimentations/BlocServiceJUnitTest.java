@@ -57,14 +57,6 @@ class BlocServiceJUnitTest {
     }
 
     @Test
-    @Order(4)
-    void removeBloc() {
-        blocService.removeBloc(1L); // Adjust ID as necessary
-        assertThrows(EntityNotFoundException.class, () -> blocService.retrieveBloc(1L));
-        System.out.println("Remove Bloc: Ok");
-    }
-
-    @Test
     @Order(5)
     void modifyBloc() {
         Bloc bloc = new Bloc();

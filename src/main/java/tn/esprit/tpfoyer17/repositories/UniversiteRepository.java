@@ -13,8 +13,6 @@ import java.util.List;
 public interface UniversiteRepository extends CrudRepository<Universite,Long> {
     Universite findByNomUniversiteLike(String nomu);
 
-   // List<Chambre> findByNomUniversiteLikeAndFoyerBlocsChambres(String nom);
-
     List<Reservation>
     findByFoyerBlocsChambresReservationsAnneeUniversitaireAndNomUniversite(
             LocalDate anneeUniversite,

@@ -20,6 +20,7 @@ import java.util.List;
 public class UniversiteService implements IUniversiteService {
     UniversiteRepository universiteRepository;
     FoyerRepository foyerRepository;
+
     @Override
     public List<Universite> retrieveAllUniversities() {
         return (List<Universite>) universiteRepository.findAll();
@@ -40,21 +41,24 @@ public class UniversiteService implements IUniversiteService {
         return universiteRepository.findById(idUniversity).orElse(null);
     }
 
-
     @Override
-    public Universite desaffecterFoyerAUniversite( long idUniversite) {
-        Universite universite = universiteRepository.findById(idUniversite).orElse(null);
-       // Foyer foyer = foyerRepository.findById(idFoyer).orElse(null);
-        universite.setFoyer(null);
-        return  universiteRepository.save(universite);
+    public Universite desaffecterFoyerAUniversite(long idUniversite) {
+        var universite = universiteRepository.findById(idUniversite).orElse(null);
+        if (universite != null) {
+            universite.setFoyer(null);
+            return universiteRepository.save(universite);
+        }
+        return null;
     }
 
     @Override
     public Universite affecterFoyerAUniversite(long idFoyer, String nomUniversite) {
-        Foyer foyer = foyerRepository.findById(idFoyer).orElse(null);
-        Universite universite = universiteRepository.findByNomUniversiteLike(nomUniversite);
-        universite.setFoyer(foyer);
-        return universiteRepository.save(universite);
-
+        var foyer = foyerRepository.findById(idFoyer).orElse(null);
+        var universite = universiteRepository.findByNomUniversiteLike(nomUniversite);
+        if (universite != null) {
+            universite.setFoyer(foyer);
+            return universiteRepository.save(universite);
+        }
+        return null;
     }
 }

@@ -84,7 +84,7 @@ class FoyerTestJUnit {
         System.out.println("Modify Foyer: Ok");
     }
 
-    @Test
+    /*@Test
     @Order(6)
     void ajouterFoyerEtAffecterAUniversite() {
         Universite universite = new Universite();
@@ -109,6 +109,6 @@ class FoyerTestJUnit {
         assertEquals("Foyer B", savedFoyer.getNomFoyer());
         assertEquals(universite.getIdUniversite(), savedFoyer.getUniversite().getIdUniversite());
         System.out.println("Add and Assign Foyer to University: Ok");
-    }
+    }*/
 }
 

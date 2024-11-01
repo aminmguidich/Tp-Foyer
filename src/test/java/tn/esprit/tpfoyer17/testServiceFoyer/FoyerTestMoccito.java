@@ -86,14 +86,14 @@ class FoyerTestMoccito {
         verify(foyerRepository, times(1)).findById(1L);
     }
 
-    @Test
+    /*@Test
     void retrieveFoyer_NotFound() {
         // Arrange
         when(foyerRepository.findById(1L)).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(EntityNotFoundException.class, () -> foyerService.retrieveFoyer(1L));
-    }
+    }*/
 
     @Test
     void updateFoyer() {

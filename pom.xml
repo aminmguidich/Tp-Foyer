@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0     https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -92,7 +93,7 @@
 
     <build>
         <plugins>
-            <!-- Configuration du plugin JaCoCo -->
+            <!-- Configuration corrigée du plugin JaCoCo -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -112,11 +113,10 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/jacoco</outputDirectory>
-                            <reports>
-                                <xml.enabled>true</xml.enabled>
-                                <html.enabled>true</html.enabled>
-                                <csv.enabled>false</csv.enabled>
-                            </reports>
+                            <formats>
+                                <format>HTML</format>
+                                <format>XML</format>
+                            </formats>
                         </configuration>
                     </execution>
                 </executions>

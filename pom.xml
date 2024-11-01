@@ -20,12 +20,12 @@
     <properties>
         <java.version>17</java.version>
         <jacoco.version>0.8.11</jacoco.version>
-        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <!-- Chemin pour le rapport XML de JaCoCo utilisé par SonarQube -->
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <dependencies>
-        <!-- Vos dépendances existantes restent inchangées -->
+        <!-- Dépendances Spring Boot et autres dépendances principales -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -42,16 +42,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -69,14 +65,13 @@
             <version>5.9.3</version>
             <scope>test</scope>
         </dependency>
-        <!-- Mockito -->
+        <!-- Mockito pour les tests unitaires -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- Mockito JUnit Jupiter -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
@@ -88,12 +83,11 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- Supprimer la dépendance jacoco-maven-plugin ici -->
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Configuration corrigée du plugin JaCoCo -->
+            <!-- Configuration du plugin JaCoCo pour générer un rapport XML -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -122,7 +116,7 @@
                 </executions>
             </plugin>
 
-            <!-- Plugin SonarQube mis à jour -->
+            <!-- Plugin SonarQube pour analyser le projet -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>

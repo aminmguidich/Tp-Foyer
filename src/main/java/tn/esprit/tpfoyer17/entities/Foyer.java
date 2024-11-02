@@ -20,7 +20,7 @@ public class Foyer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
+    @Setter
     long idFoyer;
 
     String nomFoyer;

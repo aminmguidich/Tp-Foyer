@@ -16,7 +16,7 @@ services:
   mysqldb:
     image: mysql:8
     volumes:
-      -  /home/mysql/foyerdata:/var/lib/mysql:rw
+      -  /home/mysql/foyerdb:/var/lib/mysql:rw
     networks:
       - foyerr
     environment:

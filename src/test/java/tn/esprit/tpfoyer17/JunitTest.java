@@ -9,10 +9,9 @@ import tn.esprit.tpfoyer17.services.impementations.UniversiteService;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertNull;
 @SpringBootTest
-class UniversiteServiceTestJunit {
-
+public class JunitTest {
     @Autowired
     private UniversiteService universiteService;
 
@@ -75,4 +74,7 @@ class UniversiteServiceTestJunit {
         assertNotNull(desaffecterResult);
         assertNull(desaffecterResult.getFoyer());
     }
+
 }
+
+

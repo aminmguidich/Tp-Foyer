@@ -2,6 +2,8 @@ package tn.esprit.tpfoyer17.services.impementations;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Slf4j
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UniversiteService implements IUniversiteService {
     UniversiteRepository universiteRepository;

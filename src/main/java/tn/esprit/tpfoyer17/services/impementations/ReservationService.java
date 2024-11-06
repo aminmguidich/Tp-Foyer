@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import tn.esprit.tpfoyer17.entities.Bloc;
 import tn.esprit.tpfoyer17.entities.Chambre;
 import tn.esprit.tpfoyer17.entities.Etudiant;
 import tn.esprit.tpfoyer17.entities.Reservation;
@@ -47,7 +48,8 @@ public class ReservationService implements IReservationService {
     }
 
     @Transactional
-    public Reservation annulerReservation(long cinEtudiant) {
+
+     /*public Reservation annulerReservation(long cinEtudiant) {
         Etudiant etudiant = etudiantRepository.findByCinEtudiant(cinEtudiant);
         Set<Reservation> reservationList = etudiant.getReservations();
         for (Reservation reservation : reservationList) {
@@ -69,6 +71,66 @@ public class ReservationService implements IReservationService {
         return null;
     }
 
+
+
+
+      */
+
+
+    public Reservation annulerReservation(long cinEtudiant) {
+        Etudiant etudiant = etudiantRepository.findByCinEtudiant(cinEtudiant);
+
+        if (etudiant != null) {
+            Set<Reservation> reservationList = etudiant.getReservations();
+
+            if (reservationList == null || reservationList.isEmpty()) {
+                // Return or log that there are no reservations to cancel for this student
+                System.out.println("No reservations found for student with CIN: " + cinEtudiant);
+                return null;
+            }
+
+            for (Reservation reservation : reservationList) {
+                initializeReservationCollections(reservation); // Initialisation ici
+
+                reservation.getEtudiants().remove(etudiant);
+                reservationRepository.save(reservation);
+
+                Chambre chambre = chambreRepository.findByReservationsIdReservation(reservation.getIdReservation());
+
+                if (chambre != null) {
+                    initializeChambreCollections(chambre); // Initialisation ici
+                    chambre.getReservations().remove(reservation);
+
+                    // Met à jour l'état de validité de la réservation selon le type de chambre et le nombre d'étudiants
+                    switch (chambre.getTypeChambre()) {
+                        case SIMPLE -> reservation.setEstValide(true);
+                        case DOUBLE -> {
+                            if (reservation.getEtudiants().size() == 2) reservation.setEstValide(true);
+                        }
+                        case TRIPLE -> {
+                            if (reservation.getEtudiants().size() == 3) reservation.setEstValide(true);
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    // Méthode de support pour initialiser la collection 'etudiants' dans 'Reservation'
+    private void initializeReservationCollections(Reservation reservation) {
+        if (reservation.getEtudiants() == null) {
+            reservation.setEtudiants(new HashSet<>());
+        }
+    }
+
+    // Méthode de support pour initialiser la collection 'reservations' dans 'Chambre'
+    private void initializeChambreCollections(Chambre chambre) {
+        if (chambre.getReservations() == null) {
+            chambre.setReservations(new HashSet<>());
+        }
+    }
+
     @Override
     public List<Reservation> getReservationParAnneeUniversitaireEtNomUniversite(LocalDate anneeUniversite, String nomUniversite) {
         return reservationRepository.recupererParBlocEtTypeChambre(nomUniversite, anneeUniversite);
@@ -82,12 +144,24 @@ public class ReservationService implements IReservationService {
     @Transactional
     public Reservation ajouterReservation(long idChambre, long cinEtudiant) {
         Etudiant etudiant = etudiantRepository.findByCinEtudiant(cinEtudiant);
+        if (etudiant == null) {
+            throw new IllegalArgumentException("No student found with CIN: " + cinEtudiant);
+        }
+
         Chambre chambre = chambreRepository.findById(idChambre).orElse(null);
 
-        assert chambre != null;
-        String numReservation = generateId(chambre.getNumeroChambre(),
-                chambre.getBloc().getNomBloc());
 
+        if (chambre == null) {
+            throw new IllegalArgumentException("No room found with ID: " + idChambre);
+        }
+
+        // Ensure the Bloc is not null before using it
+        Bloc bloc = chambre.getBloc();
+
+
+        if (bloc == null) throw new IllegalArgumentException("Room does not have an associated Bloc.");
+
+        String numReservation = generateId(chambre.getNumeroChambre(), bloc.getNomBloc());
         Reservation reservation = reservationRepository.findById(numReservation).orElse(
                 Reservation.builder()
                         .idReservation(numReservation)
@@ -96,9 +170,8 @@ public class ReservationService implements IReservationService {
                         .estValide(true)
                         .build());
 
-
-        //Vérifier capacité maximale de la chambre
-        if (reservation.isEstValide() && (capaciteChambreMaximale(chambre))) {
+        // Vérifier capacité maximale de la chambre
+        if (reservation.isEstValide() && capaciteChambreMaximale(chambre)) {
             chambre.getReservations().add(reservation);
             reservation.getEtudiants().add(etudiant);
             reservationRepository.save(reservation);
@@ -113,16 +186,17 @@ public class ReservationService implements IReservationService {
                 if (reservation.getEtudiants().size() == 3) reservation.setEstValide(false);
             }
         }
-        return reservationRepository.save(reservation);
 
+        return reservationRepository.save(reservation);
     }
 
 
-    private String generateId(long numChambre, String nomBloc) {
+
+    public String generateId(long numChambre, String nomBloc) {
         return numChambre + "-" + nomBloc + "-" + LocalDate.now().getYear();
     }
 
-    private boolean capaciteChambreMaximale(Chambre chambre) {
+    public boolean capaciteChambreMaximale(Chambre chambre) {
         switch (chambre.getTypeChambre()) {
             case SIMPLE -> {
                 return chambre.getReservations().size() < 2;

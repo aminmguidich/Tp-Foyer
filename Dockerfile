@@ -1,13 +1,11 @@
 FROM openjdk:17-jdk-slim
 
-ARG NEXUS_URL
-ARG GROUP_ID
-ARG ARTIFACT_ID
-ARG VERSION
-
-RUN apt-get update && apt-get install -y curl && \
-    curl -o /app.jar "${NEXUS_URL}/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar" && \
+# Install curl and download the artifact directly from Nexus
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -f -o /app.jar "http://192.168.1.200:8081/repository/maven-releases/tn/esprit/tpFoyer-17/0.0.1/tpFoyer-17-0.0.1.jar" && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Run the application
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 EXPOSE 8082

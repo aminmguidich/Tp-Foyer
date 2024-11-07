@@ -1,4 +1,4 @@
-# Start with a base image containing Java 17
+# Use a slim JDK 17 base image
 FROM openjdk:17-jdk-slim
 
 # Define build arguments for Nexus download
@@ -7,13 +7,13 @@ ARG GROUP_ID
 ARG ARTIFACT_ID
 ARG VERSION
 
-# Use curl to fetch the latest artifact from Nexus and save it as /app.jar
+# Install curl and download the latest artifact from Nexus
 RUN apt-get update && apt-get install -y curl && \
-    curl -o /app.jar "${NEXUS_URL}/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar" && \
+    curl -o /app.jar "${NEXUS_URL}/repository/maven-releases/${GROUP_ID}/${ARTIFACT_ID}/${VERSION}/${ARTIFACT_ID}-${VERSION}.jar" && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set entry point for running the application
+# Set entry point to run the JAR
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 
-# Expose the port the application runs on
+# Expose the application port
 EXPOSE 8082

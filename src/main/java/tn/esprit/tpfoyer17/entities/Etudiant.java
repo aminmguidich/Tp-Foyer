@@ -35,6 +35,6 @@ public class Etudiant implements Serializable {
     @ToString.Exclude
     @ManyToMany(mappedBy = "etudiants")
     @JsonIgnore
-    Set<Reservation> reservations;
+   private  Set<Reservation> reservations;
 
 }

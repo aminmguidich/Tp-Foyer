@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -37,7 +36,7 @@ public class Bloc implements Serializable {
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(mappedBy = "bloc")
-    Set<Chambre> chambres;
+    private Set<Chambre> chambres;
 
 
 }

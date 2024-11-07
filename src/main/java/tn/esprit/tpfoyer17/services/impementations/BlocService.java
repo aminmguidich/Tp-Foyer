@@ -20,9 +20,8 @@ public class BlocService implements IBlocService {
 
     @Override
     public List<Bloc> retrieveBlocs() {
-        return (List<Bloc>) blocRepository.findAll();
+        return blocRepository.findAll();
     }
-
     @Override
     public Bloc updateBloc(Bloc bloc) {
         return blocRepository.save(bloc);

@@ -22,37 +22,44 @@ public class EtudiantService implements IEtudiantService {
 
     @Override
     public List<Etudiant> retrieveAllEtudiants() {
+        log.info("Retrieving all students");
         return (List<Etudiant>) etudiantRepository.findAll();
     }
 
     @Override
     public List<Etudiant> addEtudiants(List<Etudiant> etudiants) {
+        log.info("Adding a list of students: {}", etudiants);
         return List.of();
     }
 
     @Override
     public Etudiant addEtudiants(Etudiant etudiant) {
-        return  etudiantRepository.save(etudiant);
+        log.info("Adding a single student: {}", etudiant);
+        return etudiantRepository.save(etudiant);
     }
 
     @Override
     public Etudiant updateEtudiant(Etudiant e) {
+        log.info("Updating student: {}", e);
         return etudiantRepository.save(e);
     }
 
     @Override
     public Etudiant retrieveEtudiant(long idEtudiant) {
-        return etudiantRepository.findById(idEtudiant) .orElseThrow(() -> new EntityNotFoundException("Etudiant not found with ID: " + idEtudiant));
+        log.info("Retrieving student with ID: {}", idEtudiant);
+        return etudiantRepository.findById(idEtudiant)
+                .orElseThrow(() -> new EntityNotFoundException("Etudiant not found with ID: " + idEtudiant));
     }
 
     @Override
     public void removeEtudiant(long idEtudiant) {
+        log.info("Removing student with ID: {}", idEtudiant);
         etudiantRepository.deleteById(idEtudiant);
-
     }
 
     @Override
     public List<Etudiant> findByReservationsAnneeUniversitaire() {
+        log.info("Finding students by reservations for the current academic year");
         return etudiantRepository.findByReservationsAnneeUniversitaire(LocalDate.now());
     }
 }

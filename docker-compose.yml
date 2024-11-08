@@ -1,4 +1,3 @@
-version: "1"
 services:
   spring-foyer:
     image: hamamadi/tpfoyer_image
@@ -15,11 +14,11 @@ services:
   mysqldb:
     image: mysql:8
     volumes:
-      -  /home/mysql/tpfoyerdb:/var/lib/mysql:rw
+      - /home/mysql/tpfoyerdb:/var/lib/mysql:rw
     networks:
       - foyerBloc
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=tpFoyer17
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tpFoyer17
 networks:
   foyerBloc:

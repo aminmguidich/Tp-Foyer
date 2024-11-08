@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
 @SpringBootTest
-public class JunitTest {
+ class JunitTest {
     @Autowired
     private UniversiteService universiteService;
 

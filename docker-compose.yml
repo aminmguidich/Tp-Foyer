@@ -1,0 +1,25 @@
+version: "1"
+services:
+  spring-foyer:
+    image: hamamadi/tpfoyer_image
+    ports:
+      - "8082:8082"
+    networks:
+      - foyerBloc
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb/tpFoyer17
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - mysqldb
+  mysqldb:
+    image: mysql:8
+    volumes:
+      -  /home/mysql/tpfoyerdb:/var/lib/mysql:rw
+    networks:
+      - foyerBloc
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tpFoyer17
+networks:
+  foyerBloc:

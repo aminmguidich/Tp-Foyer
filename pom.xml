@@ -122,7 +122,7 @@
     <distributionManagement>
         <repository>
             <id>deploymentRepo</id> <!-- ID must match the one in settings.xml -->
-            <url>http://20.123.62.183/repository/maven-releases/</url>
+            <url>http://20.123.62.183:8081/repository/maven-releases/</url>
         </repository>
     <!--  <snapshotRepository>
           <id>deploymentRepoSnapshot</id>

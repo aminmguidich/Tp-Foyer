@@ -11,7 +11,7 @@
 
     <groupId>tn.esprit</groupId>
     <artifactId>tpFoyer-17</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>tpFoyer-17</name>
     <description>tpFoyer-17</description>
 
@@ -138,7 +138,7 @@
         <repository>
             <id>deploymentRepo</id>
             <name>Nexus Releases</name>
-            <url>http://192.168.104.219:8081/repository/maven-releases/</url>
+            <url>http://192.168.1.124:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 </project>

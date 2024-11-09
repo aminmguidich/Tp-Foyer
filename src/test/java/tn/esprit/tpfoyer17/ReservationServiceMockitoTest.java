@@ -271,12 +271,7 @@ class ReservationServiceMockitoTest {
         verifyNoMoreInteractions(chambreRepository);
     }
 
-    @Test
-    void testRemoveBloc_NotFound() {
-        // This test is not directly related to ReservationService, but assuming similar logic
 
-        // Not applicable here; skipping or you can add relevant tests based on actual service methods
-    }
 
     @Test
     void testRetrieveAllReservation_Empty() {

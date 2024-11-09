@@ -49,34 +49,6 @@ public class ReservationService implements IReservationService {
 
     @Transactional
 
-     /*public Reservation annulerReservation(long cinEtudiant) {
-        Etudiant etudiant = etudiantRepository.findByCinEtudiant(cinEtudiant);
-        Set<Reservation> reservationList = etudiant.getReservations();
-        for (Reservation reservation : reservationList) {
-            reservation.getEtudiants().remove(etudiant);
-            reservationRepository.save(reservation);
-            Chambre chambre = chambreRepository.findByReservationsIdReservation(reservation.getIdReservation());
-            chambre.getReservations().remove(reservation);
-            switch (chambre.getTypeChambre()) {
-                case SIMPLE -> reservation.setEstValide(true);
-                case DOUBLE -> {
-                    if (reservation.getEtudiants().size() == 2) reservation.setEstValide(true);
-                }
-                case TRIPLE -> {
-                    if (reservation.getEtudiants().size() == 3) reservation.setEstValide(true);
-                }
-            }
-
-        }
-        return null;
-    }
-
-
-
-
-      */
-
-
     public Reservation annulerReservation(long cinEtudiant) {
         Etudiant etudiant = etudiantRepository.findByCinEtudiant(cinEtudiant);
 

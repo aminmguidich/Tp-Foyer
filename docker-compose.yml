@@ -15,7 +15,7 @@ services:
   app-timesheet:
     depends_on:
       - mysqldb
-    image: hssan577/timesheet-devops:1.0.0
+    image: hssan577/timesheet:1.0.0
     restart: on-failure
     ports:
       - "8082:8082"

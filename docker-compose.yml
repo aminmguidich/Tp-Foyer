@@ -3,6 +3,7 @@ version: "3.8"
 services:
   mysqldb:
     image: mysql:5.7
+    container_name: tpfoyer_mysqldb
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: admin
@@ -16,6 +17,7 @@ services:
     depends_on:
       - mysqldb
     image: hssan577/timesheet:1.0.0
+    container_name: tpfoyer_app_timesheet
     restart: on-failure
     ports:
       - "8082:8082"

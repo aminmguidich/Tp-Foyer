@@ -89,7 +89,6 @@
 
     <build>
         <plugins>
-            <!-- JaCoCo Maven Plugin for code coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -103,7 +102,7 @@
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>test</phase>
+                        <phase>verify</phase> <!-- Runs after tests, generating reports -->
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -115,12 +114,12 @@
                 </executions>
             </plugin>
 
+            <!-- SonarQube Maven Plugin for integration -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>4.0.0.4121</version>
+                <version>3.9.1.2184</version>
             </plugin>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

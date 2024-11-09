@@ -16,8 +16,8 @@ services:
   app-timesheet:
     depends_on:
       - mysqldb
-    image: hssan577/timesheet:1.0.0
-    container_name: tpfoyer_app_timesheet
+    image: hssan577/azerty:1.0.0
+    container_name: azerty
     restart: on-failure
     ports:
       - "8082:8082"

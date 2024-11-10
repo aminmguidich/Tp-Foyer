@@ -16,4 +16,4 @@ spec:
         - name: myapp
           image: chaima971/devopsproject:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8082

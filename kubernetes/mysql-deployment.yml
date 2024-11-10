@@ -19,16 +19,12 @@ spec:
             - containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "root"
+              value: "root"  # Set root password here
             - name: MYSQL_DATABASE
-              value: "tpFoyer17"
-            - name: MYSQL_USER
-              value: "root"
-            - name: MYSQL_PASSWORD
-              value: ""
+              value: "tpFoyer17"  # Pre-create the database
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
       volumes:
         - name: mysql-persistent-storage
-          emptyDir: {}
+          emptyDir: {}  # Use PersistentVolumeClaim for production

@@ -18,8 +18,8 @@ spec:
           ports:
             - containerPort: 3306
           env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "root"  # Set root password here
+            #- name: MYSQL_ROOT_PASSWORD
+             # value: "root"  # Set root password here
             - name: MYSQL_DATABASE
               value: "tpFoyer17"  # Pre-create the database
           volumeMounts:

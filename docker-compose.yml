@@ -12,14 +12,25 @@ services:
       SPRING_DATASOURCE_PASSWORD: root
     depends_on:
       - mysqldb
+
   mysqldb:
     image: mysql:8
     volumes:
-      -  /home/mysql/tpfoyerdb:/var/lib/mysql:rw
+      - /home/mysql/tpfoyerdb:/var/lib/mysql:rw
     networks:
       - foyerBloc
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=tpFoyer17
+
+  angular-frontend:
+    image: aminmguidich/tpfoyer_front_image:latest  # Use your Docker image for the Angular frontend
+    ports:
+      - "80:80"  # Map port 80 to access the frontend
+    networks:
+      - foyerBloc
+    depends_on:
+      - spring-foyer
+
 networks:
   foyerBloc:

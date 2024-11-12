@@ -26,11 +26,9 @@ public class EtudiantService implements IEtudiantService {
         return (List<Etudiant>) etudiantRepository.findAll();
     }
 
-    @Override
-    public List<Etudiant> addEtudiants(List<Etudiant> etudiants) {
-        log.info("Adding a list of students: {}", etudiants);
-        return List.of();
-    }
+
+
+
 
     @Override
     public Etudiant addEtudiants(Etudiant etudiant) {

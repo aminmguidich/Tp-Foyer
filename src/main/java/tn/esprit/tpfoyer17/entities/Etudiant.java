@@ -12,15 +12,14 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Etudiant implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
     long idEtudiant;
 
     String nomEtudiant;
@@ -34,6 +33,6 @@ public class Etudiant implements Serializable {
     @ToString.Exclude
     @ManyToMany(mappedBy = "etudiants")
     @JsonIgnore
-   private  Set<Reservation> reservations;
+    private Set<Reservation> reservations;
 
 }

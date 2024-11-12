@@ -4,7 +4,7 @@ FROM openjdk:17-jdk-slim
 ARG NEXUS_URL=http://192.168.1.200:8081/repository/maven-releases
 ARG GROUP_ID=tn/esprit
 ARG ARTIFACT_ID=tpFoyer-17
-ARG VERSION=2.0.0
+ARG VERSION=2.0.1
 
 # Install curl and download the application JAR from Nexus
 RUN apt-get update && \

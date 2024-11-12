@@ -10,7 +10,7 @@ public class Cros implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Allow all endpoints
-                .allowedOrigins("http://localhost:4200") // Allow your Angular app's origin
+                .allowedOrigins("http://172.20.10.2") // Allow your Angular app's origin
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowCredentials(true);
     }

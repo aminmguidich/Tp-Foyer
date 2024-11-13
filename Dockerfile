@@ -1,7 +1,7 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk-alpine
 
-ARG JAR_FILE=target/*.jar
+EXPOSE 8085
 
-COPY ${JAR_FILE} tpFoyer-17-1.0.0.jar
-ENTRYPOINT ["java", "-jar" ,"/tpFoyer-17-1.0.0.jar"]
-EXPOSE 8082
+ADD target/tpFoyer-17-0.0.1.jar tpFoyer-17-0.0.1.jar
+
+ENTRYPOINT ["java", "-jar", "/tpFoyer-17-0.0.1.jar"]

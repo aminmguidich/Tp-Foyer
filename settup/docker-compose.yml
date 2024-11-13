@@ -11,6 +11,8 @@ services:
       - devops
     volumes:
       - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount the Docker socket
+
     environment:
       - JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
       - MAVEN_HOME=/usr/share/maven

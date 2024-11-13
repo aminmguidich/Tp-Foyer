@@ -16,7 +16,7 @@ services:
   mysqldb:
     image: mysql:8.4.3
     volumes:
-      - /home/mysql/tpfoyerdb:/var/lib/mysql:rw
+      - ~/mysql/tpfoyerdb:/var/lib/mysql:rw
     networks:
       - foyerChambre
     environment:

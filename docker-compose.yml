@@ -1,29 +1,29 @@
-version: "3.8"
-
+version: "1"
 services:
-  mysqldb:
-    image: mysql:5.7
-    container_name: tpfoyer_mysqldb
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: tpFoyer17
-    ports:
-      - "3306:3306"
-    volumes:
-      - db:/var/lib/mysql
-
-  app-timesheet:
-    depends_on:
-      - mysqldb
-    image: hssan577/azerty:1.0.0
-    container_name: azerty
-    restart: on-failure
+  spring-foyer:
+    image: hssan577/tpfoyer_image
     ports:
       - "8082:8082"
-    
+    networks:
+      - foyerChambre
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb/tpFoyer17
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - mysqldb
 
-    tty: true
+  mysqldb:
+    image: mysql:8
+    volumes:
+      - /home/mysql/tpfoyerdb:/var/lib/mysql:rw
+    networks:
+      - foyerChambre
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tpFoyer17
 
-volumes:
-  db:
+
+
+networks:
+  foyerChambre:

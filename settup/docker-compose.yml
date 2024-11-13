@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  jenkins:
+    build: .
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+      - devops
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - MAVEN_HOME=/usr/share/maven
+      - PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${PATH}
+
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - devops
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://sonarqube_db:5432/sonarqube
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonar
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+
+  sonarqube_db:
+    image: postgres:13
+    container_name: sonarqube_db
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+      - POSTGRES_DB=sonarqube
+    networks:
+      - devops
+    volumes:
+      - sonarqube_db:/var/lib/postgresql/data
+
+  nexus:
+    image: sonatype/nexus3:latest
+    container_name: nexus
+    ports:
+      - "8081:8081"
+    networks:
+      - devops
+    volumes:
+      - nexus-data:/nexus-data
+    environment:
+      - INSTALL4J_ADD_VM_PARAMS=-Xms1200m -Xmx1200m
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - devops
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - devops
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+networks:
+  devops:
+    driver: bridge
+
+volumes:
+  jenkins_home:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
+  sonarqube_db:
+  nexus-data:
+  grafana_data:

@@ -7,7 +7,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -31,5 +30,5 @@ public class Reservation implements Serializable {
     @ToString.Exclude
     @ManyToMany
     @JsonIgnore
-    Set<Etudiant> etudiants;
+    private Set<Etudiant> etudiants;
 }

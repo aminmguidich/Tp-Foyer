@@ -15,6 +15,7 @@ import java.util.List;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequestMapping("api/etudiants")
+@CrossOrigin(origins = "http://192.168.1.200")
 public class EtudiantController {
     @GetMapping("/findByReservationsAnneeUniversitaire")
     public List<Etudiant> findByReservationsAnneeUniversitaire() {
@@ -26,9 +27,9 @@ public class EtudiantController {
         return etudiantService.retrieveAllEtudiants();
     }
 
-    @PostMapping("/addEtudiants")
-    public List<Etudiant> addEtudiants(@RequestBody List<Etudiant> etudiants) {
-        return etudiantService.addEtudiants(etudiants);
+    @PostMapping("/addEtudiant")
+    public Etudiant addEtudiant(@RequestBody Etudiant etudiant) {
+        return etudiantService.addEtudiants(etudiant);
     }
 
     @PutMapping("/updateEtudiant")

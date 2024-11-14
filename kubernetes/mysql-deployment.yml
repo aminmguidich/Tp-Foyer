@@ -18,20 +18,18 @@ spec:
           ports:
             - containerPort: 3306
           env:
-            - name: MYSQL_ALLOW_EMPTY_PASSWORD
-              value: "yes"  # Allow MySQL to start without a password
-            #- name: MYSQL_ROOT_PASSWORD
-             # value: ""
+            #- name: MYSQL_ALLOW_EMPTY_PASSWORD
+             # value: "yes"  # Allow MySQL to start without a password
+            - name: MYSQL_ROOT_USERNAME
+              value: "root"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "root"
             - name: MYSQL_DATABASE
               value: "tpFoyer17"  # Pre-create the database
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
-     # volumes:
-      #  - name: mysql-persistent-storage
-       #   emptyDir: {}  # Use PersistentVolumeClaim for production
       volumes:
         - name: mysql-persistent-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
+          emptyDir: {}  # Use PersistentVolumeClaim for production
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EtudiantController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tpFoyer-17</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.tpfoyer17.controllers</a> &gt; <span class="el_source">EtudiantController.java</span></div><h1>EtudiantController.java</h1><pre class="source lang-java linenums">package tn.esprit.tpfoyer17.controllers;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import tn.esprit.tpfoyer17.entities.Etudiant;
+import tn.esprit.tpfoyer17.services.interfaces.IEtudiantService;
+
+import java.util.List;
+
+@RestController
+<span class="fc" id="L14">@AllArgsConstructor</span>
+<span class="fc" id="L15">@Slf4j</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@RequestMapping(&quot;api/etudiants&quot;)
+public class EtudiantController {
+    @GetMapping(&quot;/findByReservationsAnneeUniversitaire&quot;)
+    public List&lt;Etudiant&gt; findByReservationsAnneeUniversitaire() {
+<span class="nc" id="L21">        return etudiantService.findByReservationsAnneeUniversitaire();</span>
+    }
+
+    @GetMapping(&quot;/retrieveAllEtudiants&quot;)
+    public List&lt;Etudiant&gt; retrieveAllEtudiants() {
+<span class="nc" id="L26">        return etudiantService.retrieveAllEtudiants();</span>
+    }
+
+    @PostMapping(&quot;/addEtudiants&quot;)
+    public List&lt;Etudiant&gt; addEtudiants(@RequestBody List&lt;Etudiant&gt; etudiants) {
+<span class="nc" id="L31">        return etudiantService.addEtudiants(etudiants);</span>
+    }
+
+    @PutMapping(&quot;/updateEtudiant&quot;)
+    public Etudiant updateEtudiant(@RequestBody Etudiant e) {
+<span class="nc" id="L36">        return etudiantService.updateEtudiant(e);</span>
+    }
+
+    @GetMapping(&quot;/retrieveEtudiant/{idEtudiant}&quot;)
+    public Etudiant retrieveEtudiant(@PathVariable(&quot;idEtudiant&quot;) long idEtudiant) {
+<span class="nc" id="L41">        return etudiantService.retrieveEtudiant(idEtudiant);</span>
+    }
+
+    @DeleteMapping(&quot;/removeEtudiant/{idEtudiant}&quot;)
+    public void removeEtudiant(@PathVariable(&quot;idEtudiant&quot;) long idEtudiant) {
+<span class="nc" id="L46">        etudiantService.removeEtudiant(idEtudiant);</span>
+<span class="nc" id="L47">    }</span>
+
+    IEtudiantService etudiantService;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

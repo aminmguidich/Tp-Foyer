@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UniversiteController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tpFoyer-17</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.tpfoyer17.controllers</a> &gt; <span class="el_source">UniversiteController.java</span></div><h1>UniversiteController.java</h1><pre class="source lang-java linenums">package tn.esprit.tpfoyer17.controllers;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import tn.esprit.tpfoyer17.entities.Universite;
+import tn.esprit.tpfoyer17.services.interfaces.IUniversiteService;
+
+import java.util.List;
+
+@RestController
+<span class="fc" id="L14">@AllArgsConstructor</span>
+<span class="fc" id="L15">@Slf4j</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@RequestMapping(&quot;api/univeristes&quot;)
+public class UniversiteController {
+    @GetMapping(&quot;/retrieveAllUniversities&quot;)
+    public List&lt;Universite&gt; retrieveAllUniversities() {
+<span class="nc" id="L21">        return universiteService.retrieveAllUniversities();</span>
+    }
+@PostMapping(&quot;/addUniversity&quot;)
+    public Universite addUniversity(@RequestBody Universite u) {
+<span class="nc" id="L25">        return universiteService.addUniversity(u);</span>
+    }
+@PutMapping(&quot;/updateUniversity&quot;)
+    public Universite updateUniversity(@RequestBody Universite u) {
+<span class="nc" id="L29">        return universiteService.updateUniversity(u);</span>
+    }
+@GetMapping(&quot;/retrieveUniversity/{idUniversity}&quot;)
+    public Universite retrieveUniversity(@PathVariable(&quot;idUniversity&quot;) long idUniversity) {
+<span class="nc" id="L33">        return universiteService.retrieveUniversity(idUniversity);</span>
+    }
+@PutMapping(&quot;/affecterFoyerAUniversite/{idFoyer}/{nomUniversite}&quot;)
+    public Universite affecterFoyerAUniversite(@PathVariable(&quot;idFoyer&quot;) long idFoyer, @PathVariable(&quot;nomUniversite&quot;) String nomUniversite) {
+<span class="nc" id="L37">        return universiteService.affecterFoyerAUniversite(idFoyer, nomUniversite);</span>
+    }
+@PutMapping(&quot;/desaffecterFoyerAUniversite/{idUniversite}&quot;)
+    public Universite desaffecterFoyerAUniversite(
+                                                  @PathVariable(&quot;idUniversite&quot;) long idUniversite) {
+<span class="nc" id="L42">        return universiteService.desaffecterFoyerAUniversite( idUniversite);</span>
+    }
+
+    IUniversiteService universiteService;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

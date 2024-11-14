@@ -7,10 +7,12 @@ import lombok.experimental.FieldDefaults;
 import tn.esprit.tpfoyer17.entities.enumerations.TypeChambre;
 
 import java.io.Serializable;
-import java.util.HashSet;
+
 import java.util.Set;
 
 @Entity
+
+@Table(name = "chambre") // Si nécessaire, ajoutez cette annotation
 @Getter
 @Setter
 @AllArgsConstructor

@@ -39,6 +39,9 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
+
+
+
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
@@ -131,8 +134,8 @@
     <distributionManagement>
         <repository>
             <id>deploymentRepo</id>
-            <name>Nexus Repository</name>
-            <url>http://localhost:8081/repository/maven-releases/</url>
+            <name>Nexus Releases</name>
+            <url>http://192.168.1.200:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 

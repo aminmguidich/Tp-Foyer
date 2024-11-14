@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FoyerService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tpFoyer-17</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.tpfoyer17.services.impementations</a> &gt; <span class="el_source">FoyerService.java</span></div><h1>FoyerService.java</h1><pre class="source lang-java linenums">package tn.esprit.tpfoyer17.services.impementations;
+
+import jakarta.transaction.Transactional;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import tn.esprit.tpfoyer17.entities.Bloc;
+import tn.esprit.tpfoyer17.entities.Foyer;
+import tn.esprit.tpfoyer17.entities.Universite;
+import tn.esprit.tpfoyer17.repositories.BlocRepository;
+import tn.esprit.tpfoyer17.repositories.FoyerRepository;
+import tn.esprit.tpfoyer17.repositories.UniversiteRepository;
+import tn.esprit.tpfoyer17.services.interfaces.IFoyerService;
+
+import java.util.List;
+
+@Service
+<span class="fc" id="L20">@AllArgsConstructor</span>
+<span class="fc" id="L21">@Slf4j</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class FoyerService implements IFoyerService {
+    FoyerRepository foyerRepository;
+    BlocRepository blocRepository;
+    UniversiteRepository universiteRepository;
+
+    @Override
+    public List&lt;Foyer&gt; retrieveAllFoyers() {
+<span class="nc" id="L30">        return (List&lt;Foyer&gt;) foyerRepository.findAll();</span>
+    }
+
+    @Override
+    public Foyer addFoyer(Foyer f) {
+<span class="nc" id="L35">        return foyerRepository.save(f);</span>
+    }
+
+    @Override
+    public Foyer updateFoyer(Foyer f) {
+<span class="nc" id="L40">        return foyerRepository.save(f);</span>
+    }
+
+    @Override
+    public Foyer retrieveFoyer(long idFoyer) {
+<span class="nc" id="L45">        return foyerRepository.findById(idFoyer).orElse(null);</span>
+    }
+
+    @Override
+    public void removeFoyer(long idFoyer) {
+<span class="nc" id="L50">    foyerRepository.deleteById(idFoyer);</span>
+<span class="nc" id="L51">    }</span>
+
+    @Transactional
+    public Foyer ajouterFoyerEtAffecterAUniversite(Foyer foyer, long idUniversite) {
+<span class="nc" id="L55">        Universite universite = universiteRepository.findById(idUniversite).orElse(null);</span>
+<span class="nc" id="L56">foyerRepository.save(foyer);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">for(Bloc bloc : foyer.getBlocs())</span>
+{
+<span class="nc" id="L59">    bloc.setFoyer(foyer);</span>
+<span class="nc" id="L60">    blocRepository.save(bloc);</span>
+<span class="nc" id="L61">}</span>
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        assert universite != null;</span>
+<span class="nc" id="L64">        universite.setFoyer(foyer);</span>
+<span class="nc" id="L65">        universiteRepository.save(universite);</span>
+
+<span class="nc" id="L67">        return foyer;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChambreService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tpFoyer-17</a> &gt; <a href="index.source.html" class="el_package">tn.esprit.tpfoyer17.services.impementations</a> &gt; <span class="el_source">ChambreService.java</span></div><h1>ChambreService.java</h1><pre class="source lang-java linenums">package tn.esprit.tpfoyer17.services.impementations;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import tn.esprit.tpfoyer17.entities.Bloc;
+import tn.esprit.tpfoyer17.entities.Chambre;
+import tn.esprit.tpfoyer17.entities.Universite;
+import tn.esprit.tpfoyer17.entities.enumerations.TypeChambre;
+import tn.esprit.tpfoyer17.repositories.BlocRepository;
+import tn.esprit.tpfoyer17.repositories.ChambreRepository;
+import tn.esprit.tpfoyer17.repositories.UniversiteRepository;
+import tn.esprit.tpfoyer17.services.interfaces.IChambreService;
+
+import java.util.List;
+
+@Service
+<span class="fc" id="L21">@AllArgsConstructor</span>
+<span class="fc" id="L22">@Slf4j</span>
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class ChambreService implements IChambreService {
+    ChambreRepository chambreRepository;
+    BlocRepository blocRepository;
+    UniversiteRepository universiteRepository;
+
+    @Override
+    public List&lt;Chambre&gt; retrieveAllChambres() {
+<span class="nc" id="L31">        return (List&lt;Chambre&gt;) chambreRepository.findAll();</span>
+    }
+
+    @Override
+    public Chambre addChambre(Chambre c) {
+<span class="nc" id="L36">        return chambreRepository.save(c);</span>
+    }
+
+    @Override
+    public Chambre updateChambre(Chambre c) {
+<span class="nc" id="L41">        return chambreRepository.save(c);</span>
+    }
+
+    @Override
+    public Chambre retrieveChambre(long idChambre) {
+<span class="nc" id="L46">        return chambreRepository.findById(idChambre).orElse(null);</span>
+    }
+
+    @Override
+    public List&lt;Chambre&gt; findByTypeChambre() {
+<span class="nc" id="L51">        return chambreRepository.findByTypeChambreAndReservationsEstValide(TypeChambre.DOUBLE, true);</span>
+    }
+
+    @Override
+    public Bloc affecterChambresABloc(List&lt;Long&gt; numChambre, long idBloc) {
+<span class="nc" id="L56">       Bloc bloc = blocRepository.findById(idBloc).orElse(null);</span>
+       //List&lt;Chambre&gt; chambreList = (List&lt;Chambre&gt;) chambreRepository.findAllById(numChambre);
+<span class="nc" id="L58">       List&lt;Chambre&gt; chambreList =  chambreRepository.findByNumeroChambreIn(numChambre);</span>
+
+<span class="nc bnc" id="L60" title="All 2 branches missed.">       for(Chambre chambre: chambreList) {</span>
+<span class="nc" id="L61">           chambre.setBloc(bloc);</span>
+<span class="nc" id="L62">           chambreRepository.save(chambre);</span>
+<span class="nc" id="L63">       }</span>
+<span class="nc" id="L64">        return bloc;</span>
+    }
+
+    @Override
+    public List&lt;Chambre&gt; getChambresParNomUniversite(String nomUniversite) {
+<span class="nc" id="L69">        return chambreRepository.findByBlocFoyerUniversiteNomUniversiteLike(nomUniversite);</span>
+    }
+
+    @Override
+    public List&lt;Chambre&gt; getChambresParBlocEtType(long idBloc, TypeChambre typeC) {
+<span class="nc" id="L74">        return chambreRepository.findByBlocIdBlocAndTypeChambre(idBloc,typeC);</span>
+    }
+
+    @Override
+    public List&lt;Chambre&gt; getChambresParBlocEtTypeJPQL(long idBloc, TypeChambre typeC) {
+<span class="nc" id="L79">        return chambreRepository.recupererParBlocEtTypeChambre(idBloc, typeC);</span>
+    }
+
+    @Override
+    public List&lt;Chambre&gt; getChambresNonReserveParNomUniversiteEtTypeChambre(String nomUniversite, TypeChambre type) {
+<span class="nc" id="L84">        return chambreRepository.getChambresNonReserveParNomUniversiteEtTypeChambre(nomUniversite,type);</span>
+    }
+
+    @Scheduled(cron = &quot;*/10 * * * * *&quot; )
+
+    @Override
+    public void getChambresNonReserve() {
+
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        for (Chambre chambre : chambreRepository.getChambresNonReserve())</span>
+        {
+<span class="nc" id="L94">            log.info(chambre.toString());</span>
+<span class="nc" id="L95">        }</span>
+<span class="nc" id="L96">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

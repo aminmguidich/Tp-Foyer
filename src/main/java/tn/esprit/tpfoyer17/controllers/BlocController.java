@@ -53,7 +53,7 @@ public class BlocController {
         return blocService.updateBloc(bloc);
     }
 
-//test
+//testtest
     @DeleteMapping("/removeBloc/{idBloc}")
     public void removeBloc(@PathVariable("idBloc") long idBloc) {
         blocService.removeBloc(idBloc);

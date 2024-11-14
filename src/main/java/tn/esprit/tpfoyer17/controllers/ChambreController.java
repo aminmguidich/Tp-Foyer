@@ -17,6 +17,8 @@ import java.util.List;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequestMapping("api/chambres")
+@CrossOrigin(origins = "*", maxAge = 3600)
+
 public class ChambreController {
     @GetMapping("/retrieveAllChambres")
     public List<Chambre> retrieveAllChambres() {

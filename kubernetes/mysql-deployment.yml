@@ -21,7 +21,7 @@ spec:
            # - name: MYSQL_ALLOW_EMPTY_PASSWORD
             #  value: "yes"  # Allow MySQL to start without a password
             - name: MYSQL_ROOT_PASSWORD
-              value: "root"
+              value: "chaima"
             - name: MYSQL_DATABASE
               value: "tpFoyer17"  # Pre-create the database
           volumeMounts:

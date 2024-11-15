@@ -8,7 +8,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.tpfoyer17.entities.Etudiant;
-import tn.esprit.tpfoyer17.repositories.EtudiantRepository;
+
 
 
 import java.util.Date;
@@ -22,9 +22,6 @@ class EtudiantServiceJUnitTest {
 
     @Autowired
     private EtudiantService etudiantService;
-
-    @Autowired
-    private EtudiantRepository etudiantRepository;
 
     @Test
     @Order(1)

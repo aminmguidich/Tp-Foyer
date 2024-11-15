@@ -77,7 +77,6 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-            <version>1.9.15</version>
         </dependency>
 
         <!-- Testing dependencies -->

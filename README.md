@@ -1,84 +1,89 @@
-# **Tp-Foyer DevOps Pipeline**
+# Project Name
 
-This repository contains the Spring Boot application setup with Docker and Docker Compose. The project ensures seamless containerization and deployment of the application and its MySQL database.
-
----
-
-## **Table of Contents**
-1. [Overview](#overview)
-2. [Project Structure](#project-structure)
-3. [Tools & Technologies Used](#tools--technologies-used)
-4. [How to Build and Run](#how-to-build-and-run)
-5. [Screenshots](#screenshots)
-6. [Monitoring](#monitoring)
-7. [Contributing](#contributing)
+## Description
+This is a Spring Boot application containerized using Docker. The project includes unit tests implemented with JUnit and Mockito for thorough testing.
 
 ---
 
-## **Overview**
+## Prerequisites
+Make sure you have the following installed:
 
-The Tp-Foyer project uses Docker and Docker Compose to containerize the Spring Boot application and MySQL database. The goal is to simplify deployment while maintaining scalability and modularity.
-
-### **Key Features:**
-- Spring Boot REST API.
-- MySQL database integration.
-- Containerized environment using Docker.
-- Multi-container orchestration using Docker Compose.
+- **Java 17** (or compatible version)
+- **Maven** (for building the project)
+- **Docker** and **Docker Compose**
 
 ---
 
-## **Project Structure**
-
-The project is organized as follows:
-
-```plaintext
-Tp-Foyer/
-├── src/                  # Spring Boot source code
-├── Dockerfile            # Instructions to build the Docker image
-├── docker-compose.yml    # Multi-container setup (Spring Boot + MySQL)
-└── README.md             # Documentation
+## Project Structure
+```
+.
+|-- src/              # Application source code
+|-- pom.xml           # Maven configuration
+|-- Dockerfile        # Docker build file
+|-- docker-compose.yml
+|-- README.md         # This file
 ```
 
 ---
 
-## **Tools & Technologies Used**
+## Building the Project
 
-- **Backend Framework**: Spring Boot
-- **Database**: MySQL
-- **Containerization**: Docker
-- **Orchestration**: Docker Compose
+### 1. Build the Spring Boot Application
+Run the following command to build the project and package it as a JAR file:
+```bash
+mvn clean package
+```
 
----
+This will generate a JAR file in the `target/` directory.
 
-## **How to Build and Run**
-
-Follow these steps to build and run the application:
-
-### **1. Prerequisites**
-Ensure the following tools are installed on your system:
-- Docker
-- Docker Compose
-
-### **2. Build the Docker Image**
-Run the following command in the project root directory:
+### 2. Build the Docker Image
+Use the `Dockerfile` to build the Docker image for the Spring Boot application:
 
 ```bash
-docker build -t tp-foyer-app .
+docker build -t springboot-app .
 ```
 
-### **3. Run the Application with Docker Compose**
-Use Docker Compose to start both the Spring Boot application and MySQL database:
+- `-t springboot-app`: Tags the image with the name "springboot-app".
+
+### 3. Run the Application Using Docker Compose
+Start the application along with its required services (e.g., database) using Docker Compose:
 
 ```bash
 docker-compose up
 ```
 
-### **4. Access the Application**
-- The Spring Boot application will be accessible at: [http://localhost:8080](http://localhost:8080)
-- MySQL will be running on port `3306`.
+---
 
-### **5. Stop the Containers**
-To stop and remove containers, run:
+## Testing the Application
+
+### Run Unit Tests
+JUnit and Mockito are used to write and execute unit tests.
+Run the tests with Maven:
+
+```bash
+mvn test
+```
+
+The test results will be displayed in the console, and reports can be found under:
+```
+target/surefire-reports/
+```
+
+---
+
+## Accessing the Application
+Once the container is running, you can access the Spring Boot application at:
+
+```
+http://localhost:8080
+```
+
+> **Note:** Ensure the `docker-compose.yml` file maps the port 8080 correctly.
+
+---
+
+## Stopping the Application
+To stop and remove the running containers, execute:
 
 ```bash
 docker-compose down
@@ -86,32 +91,11 @@ docker-compose down
 
 ---
 
-## **Screenshots**
-
-### **1. Docker Compose Execution**
-![Docker Compose](https://github.com/aminmguidich/Tp-Foyer/blob/main/docs/Screenshots/Screenshot1.png)
-
-### **2. Application Running in Docker**
-![Docker Containers](https://github.com/aminmguidich/Tp-Foyer/blob/main/docs/Screenshots/Screenshot2.png)
+## Additional Notes
+- Update `application.properties` or `application.yml` for externalized configurations like database settings.
+- Unit tests are located under `src/test/java`.
 
 ---
 
-## **Monitoring**
-
-You can integrate tools like **Prometheus** and **Grafana** to monitor the application's performance, resource usage, and health metrics.
-
----
-
-## **Contributing**
-
-Contributions are welcome! Follow these steps:
-1. Fork the repository.
-2. Create a new branch.
-3. Commit and push your changes.
-4. Submit a pull request.
-
-For major changes, please open an issue first to discuss the proposed updates.
-
----
-
-**Contact**: For questions, reach out to the repository maintainer.
+## Author
+[Your Name]

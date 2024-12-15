@@ -1,72 +1,117 @@
-# Tp-Foyer DevOps Project
+# **Tp-Foyer DevOps Pipeline**
 
-This repository contains a DevOps pipeline for the Tp-Foyer project. The pipeline includes various stages such as building, testing, quality assurance, and deployment. This README provides an overview of the pipeline steps and includes relevant screenshots.
+This repository contains the Spring Boot application setup with Docker and Docker Compose. The project ensures seamless containerization and deployment of the application and its MySQL database.
 
-## Table of Contents
+---
 
-- [Pipeline Stages](#pipeline-stages)
-- [Screenshots](#screenshots)
-- [How to Run the Pipeline](#how-to-run-the-pipeline)
-- [Tools Used](#tools-used)
-- [Contributing](#contributing)
+## **Table of Contents**
+1. [Overview](#overview)
+2. [Project Structure](#project-structure)
+3. [Tools & Technologies Used](#tools--technologies-used)
+4. [How to Build and Run](#how-to-build-and-run)
+5. [Screenshots](#screenshots)
+6. [Monitoring](#monitoring)
+7. [Contributing](#contributing)
 
-## Pipeline Stages
+---
 
-1. **Retrieve the project from GitHub/GitLab**
-   - Clone the repository from GitHub.
+## **Overview**
 
-2. **Create the project deliverable**
-   - Build the project using Maven or Gradle.
+The Tp-Foyer project uses Docker and Docker Compose to containerize the Spring Boot application and MySQL database. The goal is to simplify deployment while maintaining scalability and modularity.
 
-3. **Run unit tests**
-   - Execute unit tests to ensure code quality.
+### **Key Features:**
+- Spring Boot REST API.
+- MySQL database integration.
+- Containerized environment using Docker.
+- Multi-container orchestration using Docker Compose.
 
-4. **Run code quality tests (SonarQube)**
-   - Analyze the code using SonarQube for code quality checks.
+---
 
-5. **Deploy the deliverable to Nexus**
-   - Upload the built artifacts to Nexus repository.
+## **Project Structure**
 
-6. **Build the Docker image (Spring part)**
-   - Create a Docker image for the Spring application.
+The project is organized as follows:
 
-7. **Create the Spring deliverable from DockerFile**
-   - Build the Docker image using the DockerFile.
+```plaintext
+Tp-Foyer/
+├── src/                  # Spring Boot source code
+├── Dockerfile            # Instructions to build the Docker image
+├── docker-compose.yml    # Multi-container setup (Spring Boot + MySQL)
+└── README.md             # Documentation
+```
 
-8. **Upload the created image to DockerHub**
-   - Push the Docker image to DockerHub.
+---
 
-9. **Simultaneously launch the Spring deliverable image and MySQL image using docker-compose**
-   - Use docker-compose to start both the Spring application and MySQL database.
+## **Tools & Technologies Used**
 
-10. **Test the application's services with Postman**
-    - Validate the application's endpoints and services using Postman.
+- **Backend Framework**: Spring Boot
+- **Database**: MySQL
+- **Containerization**: Docker
+- **Orchestration**: Docker Compose
 
-11. **Monitor tools (Jenkins, Spring application, etc.) using Prometheus and Grafana**
-    - Set up monitoring for Jenkins and the Spring application with Prometheus and Grafana.
+---
 
-## Screenshots
+## **How to Build and Run**
 
-Here are some screenshots from the project:
+Follow these steps to build and run the application:
 
-### Screenshot 1
-![Screenshot1](https://github.com/aminmguidich/Tp-Foyer/blob/main/docs/Screenshots/Screenshot1.png)
+### **1. Prerequisites**
+Ensure the following tools are installed on your system:
+- Docker
+- Docker Compose
 
-### Screenshot 2
-![Screenshot2](https://github.com/aminmguidich/Tp-Foyer/blob/main/docs/Screenshots/Screenshot2.png)
+### **2. Build the Docker Image**
+Run the following command in the project root directory:
 
-### Screenshot 3
-![Screenshot3](https://github.com/aminmguidich/Tp-Foyer/blob/main/docs/Screenshots/Screenshot3.png)
+```bash
+docker build -t tp-foyer-app .
+```
 
-### Screenshot 4
-![Screenshot4](https://github.com/aminmguidich/Tp-Foyer/blob/main/docs/Screenshots/Screenshot4.png)
+### **3. Run the Application with Docker Compose**
+Use Docker Compose to start both the Spring Boot application and MySQL database:
 
-### Screenshot 5
-![Screenshot5](https://github.com/aminmguidich/Tp-Foyer/blob/main/docs/Screenshots/Screenshot5.png)
+```bash
+docker-compose up
+```
 
-## How to Run the Pipeline
+### **4. Access the Application**
+- The Spring Boot application will be accessible at: [http://localhost:8080](http://localhost:8080)
+- MySQL will be running on port `3306`.
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/aminmguidich/Tp-Foyer.git
-   cd Tp-Foyer
+### **5. Stop the Containers**
+To stop and remove containers, run:
+
+```bash
+docker-compose down
+```
+
+---
+
+## **Screenshots**
+
+### **1. Docker Compose Execution**
+![Docker Compose](https://github.com/aminmguidich/Tp-Foyer/blob/main/docs/Screenshots/Screenshot1.png)
+
+### **2. Application Running in Docker**
+![Docker Containers](https://github.com/aminmguidich/Tp-Foyer/blob/main/docs/Screenshots/Screenshot2.png)
+
+---
+
+## **Monitoring**
+
+You can integrate tools like **Prometheus** and **Grafana** to monitor the application's performance, resource usage, and health metrics.
+
+---
+
+## **Contributing**
+
+Contributions are welcome! Follow these steps:
+1. Fork the repository.
+2. Create a new branch.
+3. Commit and push your changes.
+4. Submit a pull request.
+
+For major changes, please open an issue first to discuss the proposed updates.
+
+---
+
+**Contact**: For questions, reach out to the repository maintainer.

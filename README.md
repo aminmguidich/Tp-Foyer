@@ -97,5 +97,11 @@ docker-compose down
 
 ---
 
+## Screenshots
+
+### Screenshot 1
+![Screenshot 1](docs/Screenshots/Screenshot1.png)
+
+
 ## Author
 Mohamed Amine Mguidich

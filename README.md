@@ -98,4 +98,4 @@ docker-compose down
 ---
 
 ## Author
-[Your Name]
+Mohamed Amine Mguidich
